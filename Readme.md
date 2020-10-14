@@ -10,3 +10,11 @@
 * Get an Healthcare by its identifier -- /healthcares/{id} : GET
 * Update an Healthcare -- /healthcares/{id} : PUT
 * Delete an Healthcare -- /healthcares/{id} : PUT
+
+# PROJECT
+* Project with Spring Boot 
+* With the use of ExceptionHandler
+
+# DB
+* Used database mysql
+* Used flyway migrations for creating the tables
