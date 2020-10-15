@@ -14,11 +14,11 @@ import com.pixeon.challenge.domain.model.HealthcareInstitution;
 public class ExamServiceImpl extends BaseServiceImpl<Exam> {
 
 	@Override
-	public Exam save(Exam entity) {	
-		if(entity.getHealthcare().getBugdet().getCoin().compareTo(BigDecimal.ZERO) == 0) {
-			throw new BusinessException("You are not allowed to create or take an exam, because you are out of budget!");
-		}
+	public Exam save(Exam entity) {		
 		if(entity.getIdExam() == null) {
+			if(entity.getHealthcare().getBugdet().getCoin().compareTo(BigDecimal.ZERO) == 0) {
+				throw new BusinessException("You are not allowed to create or take an exam, because you are out of budget!");
+			}
 			entity.setAccessFirst(true);
 			subtractCoinBugdet(entity, "New Exam", BigDecimal.ONE);
 		}

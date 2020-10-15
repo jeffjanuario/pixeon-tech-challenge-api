@@ -1,6 +1,5 @@
 package com.pixeon.challenge.api.controller.impl;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -79,7 +78,7 @@ public class ExamControllerImpl implements ExamController {
 
 	@Override
 	@PutMapping("/{id}")
-	public ResponseEntity<ExamModel> put(@PathVariable Long id, ExamInput input) {
+	public ResponseEntity<ExamModel> put(@PathVariable Long id,  @Valid @RequestBody ExamInput input) {
 		if (!service.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
