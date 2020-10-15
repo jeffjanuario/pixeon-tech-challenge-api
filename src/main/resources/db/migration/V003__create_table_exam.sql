@@ -1,6 +1,6 @@
 create table exam (
 	id bigint not null auto_increment,
-	access_first tinyint(1) not null,
+	access_first tinyint(1)  DEFAULT 0,
 	healthcare_id bigint not null,
 	patient_name text not null,
 	patient_age text not null,
