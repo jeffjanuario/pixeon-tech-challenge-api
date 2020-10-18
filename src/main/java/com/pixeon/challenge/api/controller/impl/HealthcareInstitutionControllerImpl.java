@@ -41,7 +41,7 @@ public class HealthcareInstitutionControllerImpl extends BaseControllerImpl<Heal
 	
 	@Override
 	@PostMapping("/{id}/{coin}")
-	@ApiOperation(value="Add coin to budget by healthcar institution")
+	@ApiOperation(value="Add coin to budget by healthcare institution")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ResponseEntity<HealthcareInstitutionModel> addCoinBugdet(@PathVariable Long id,@PathVariable BigDecimal coin,  @Valid @RequestBody HealthcareInstitutionInput input) {
 		if (!service.existsById(id)) {
@@ -53,13 +53,13 @@ public class HealthcareInstitutionControllerImpl extends BaseControllerImpl<Heal
 	}
 	
 	@Override
-	@ApiOperation(value="List all healthcar institution")
+	@ApiOperation(value="List all healthcare institution")
 	public List<HealthcareInstitutionModel> findAll() {
 		return super.findAll();
 	}
 	
 	@Override
-	@ApiOperation(value="Find by healthcar by id")
+	@ApiOperation(value="Find healthcare by id")
 	public ResponseEntity<HealthcareInstitutionModel> findById(@PathVariable Long id) {
 		return super.findById(id);
 	}
