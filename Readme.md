@@ -5,4 +5,4 @@
 
 # DB
 * Used database mysql
-* Used flyway migrations for creating the tables
+* Used flyway migrations for creating the tables 
