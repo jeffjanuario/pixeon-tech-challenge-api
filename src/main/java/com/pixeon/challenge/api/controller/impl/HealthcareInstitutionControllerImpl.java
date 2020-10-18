@@ -65,13 +65,13 @@ public class HealthcareInstitutionControllerImpl extends BaseControllerImpl<Heal
 	}
 	
 	@Override
-	@ApiOperation(value="Save healthcar")
+	@ApiOperation(value="Save healthcare")
 	public HealthcareInstitutionModel save(@Valid @RequestBody HealthcareInstitutionInput input) {
 		return super.save(input);
 	}
 	
 	@Override
-	@ApiOperation(value="Put healthcar")
+	@ApiOperation(value="Put healthcare")
 	public ResponseEntity<HealthcareInstitutionModel> put(@PathVariable Long id, @Valid @RequestBody HealthcareInstitutionInput input) {
 		return super.put(id, input);
 	}

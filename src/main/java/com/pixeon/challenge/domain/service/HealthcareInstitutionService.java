@@ -7,5 +7,4 @@ import com.pixeon.challenge.domain.model.HealthcareInstitution;
 
 public interface HealthcareInstitutionService extends BaseService<HealthcareInstitution> {
 	public HealthcareInstitution addCoinBugdet(HealthcareInstitution entity,BigDecimal coin);
-
 }
