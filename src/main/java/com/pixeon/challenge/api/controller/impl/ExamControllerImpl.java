@@ -26,6 +26,8 @@ import com.pixeon.challenge.domain.model.HealthcareInstitution;
 import com.pixeon.challenge.domain.service.BaseService;
 import com.pixeon.challenge.domain.service.HealthcareInstitutionService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/healthcares/{healthcareId}/exams")
 public class ExamControllerImpl implements ExamController {
@@ -47,6 +49,7 @@ public class ExamControllerImpl implements ExamController {
 	@Override
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
+	@ApiOperation(value="Add new exam by healthcar institution")
 	public ExamModel save(@PathVariable Long healthcareId, @Valid @RequestBody ExamInput input) {
 		Optional<HealthcareInstitution> findById = healthcareService.findById(healthcareId);
 		Exam exam = inputToEntity.toSimple(input, Exam.class);
@@ -58,6 +61,7 @@ public class ExamControllerImpl implements ExamController {
 
 	@Override
 	@GetMapping("/{id}")
+	@ApiOperation(value="Find exam by id")
 	public ResponseEntity<ExamModel> findById(@PathVariable Long id) {
 		Optional<Exam> old = service.findById(id);
 		if (old.isPresent()) {
@@ -68,6 +72,7 @@ public class ExamControllerImpl implements ExamController {
 
 	@Override
 	@DeleteMapping("/{id}")
+	@ApiOperation(value="Delete exam by id")
 	public ResponseEntity<ExamModel> delete(@PathVariable(value = "id")  Long id) {
 		if (!service.existsById(id)) {
 			return ResponseEntity.notFound().build();
@@ -78,6 +83,7 @@ public class ExamControllerImpl implements ExamController {
 
 	@Override
 	@PutMapping("/{id}")
+	@ApiOperation(value="Put exam by id")
 	public ResponseEntity<ExamModel> put(@PathVariable Long id,  @Valid @RequestBody ExamInput input) {
 		if (!service.existsById(id)) {
 			return ResponseEntity.notFound().build();
