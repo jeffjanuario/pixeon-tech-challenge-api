@@ -23,7 +23,7 @@ import com.pixeon.challenge.api.model.ExamModel;
 import com.pixeon.challenge.api.model.input.ExamInput;
 import com.pixeon.challenge.domain.model.Exam;
 import com.pixeon.challenge.domain.model.HealthcareInstitution;
-import com.pixeon.challenge.domain.service.BaseService;
+import com.pixeon.challenge.domain.service.ExamService;
 import com.pixeon.challenge.domain.service.HealthcareInstitutionService;
 
 import io.swagger.annotations.ApiOperation;
@@ -33,48 +33,50 @@ import io.swagger.annotations.ApiOperation;
 public class ExamControllerImpl implements ExamController {
 
 	@Autowired
-	private BaseService<Exam> service;
+	private ExamService service;
 	@Autowired
 	private HealthcareInstitutionService healthcareService;
-	
+
 	@Autowired
 	protected ConvertClassModel<ExamInput, ExamModel> inputToModel;
 	@Autowired
 	protected ConvertClassModel<Exam, ExamModel> entityToModel;
 	@Autowired
 	protected ConvertClassModel<ExamInput, Exam> inputToEntity;
+
 	public ExamControllerImpl() {
 	}
 
 	@Override
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	@ApiOperation(value="Add new exam by healthcare institution")
+	@ApiOperation(value = "Add new exam by healthcare institution")
 	public ExamModel save(@PathVariable Long healthcareId, @Valid @RequestBody ExamInput input) {
 		Optional<HealthcareInstitution> findById = healthcareService.findById(healthcareId);
 		Exam exam = inputToEntity.toSimple(input, Exam.class);
-		if(findById.isPresent()) {
+		if (findById.isPresent()) {
 			exam.setHealthcare(findById.get());
 		}
-		return  entityToModel.toSimple(service.save(exam), ExamModel.class);	
+		return entityToModel.toSimple(service.save(exam), ExamModel.class);
 	}
 
 	@Override
 	@GetMapping("/{id}")
-	@ApiOperation(value="Find exam by id")
-	public ResponseEntity<ExamModel> findById(@PathVariable Long id) {
-		Optional<Exam> old = service.findById(id);
+	@ApiOperation(value = "Find exam by id")
+	public ResponseEntity<ExamModel> findById(@PathVariable Long healthcareId, @PathVariable Long id) {
+		Optional<Exam> old = service.findByHealthcare(healthcareId, id);
 		if (old.isPresent()) {
 			return ResponseEntity.ok(entityToModel.toSimple(old.get(), ExamModel.class));
 		}
-		return  ResponseEntity.notFound().build();
+		return ResponseEntity.notFound().build();
 	}
 
 	@Override
 	@DeleteMapping("/{id}")
-	@ApiOperation(value="Delete exam")
-	public ResponseEntity<ExamModel> delete(@PathVariable(value = "id")  Long id) {
-		if (!service.existsById(id)) {
+	@ApiOperation(value = "Delete exam")
+	public ResponseEntity<ExamModel> delete(@PathVariable Long healthcareId, @PathVariable(value = "id") Long id) {
+		Optional<Exam> old = service.findByHealthcare(healthcareId, id);
+		if(!old.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 		service.deleteById(id);
@@ -83,9 +85,11 @@ public class ExamControllerImpl implements ExamController {
 
 	@Override
 	@PutMapping("/{id}")
-	@ApiOperation(value="Put exam")
-	public ResponseEntity<ExamModel> put(@PathVariable Long id,  @Valid @RequestBody ExamInput input) {
-		if (!service.existsById(id)) {
+	@ApiOperation(value = "Put exam")
+	public ResponseEntity<ExamModel> put(@PathVariable Long healthcareId, @PathVariable Long id,
+			@Valid @RequestBody ExamInput input) {
+		Optional<Exam> old = service.findByHealthcare(healthcareId, id);
+		if(!old.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 		input.setId(id);
