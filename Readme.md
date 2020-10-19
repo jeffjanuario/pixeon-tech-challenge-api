@@ -7,5 +7,5 @@
 * Used flyway migrations for creating the tables 
 
 # Documentation
-* Used swagger of documentation project
+* Swagger used in project
 * URL: http://localhost:8080/swagger-ui.html
