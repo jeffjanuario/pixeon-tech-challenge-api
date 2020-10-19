@@ -2,6 +2,7 @@ package com.pixeon.challenge.api.controller.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -43,12 +44,13 @@ public class HealthcareInstitutionControllerImpl extends BaseControllerImpl<Heal
 	@PostMapping("/{id}/{coin}")
 	@ApiOperation(value="Add coin to bugdet by healthcare institution")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ResponseEntity<HealthcareInstitutionModel> addCoinBugdet(@PathVariable Long id,@PathVariable BigDecimal coin,  @Valid @RequestBody HealthcareInstitutionInput input) {
-		if (!service.existsById(id)) {
+	public ResponseEntity<HealthcareInstitutionModel> addCoinBugdet(@PathVariable Long id,@PathVariable BigDecimal coin) {
+		Optional<HealthcareInstitution> findById = service.findById(id);
+		
+		if (!findById.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
-		input.setId(id);
-		HealthcareInstitution entity = healthcareInstitutionService.addCoinBugdet(inputToEntity.toSimple(input, entityClass), coin);
+		HealthcareInstitution entity = healthcareInstitutionService.addCoinBugdet(findById.get(), coin);
 		return ResponseEntity.ok(entityToModel.toSimple(entity, modelClass));
 	}
 	

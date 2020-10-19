@@ -11,5 +11,5 @@ import com.pixeon.challenge.domain.model.HealthcareInstitution;
 
 @RestController
 public interface HealthcareInstitutionController extends BaseController<HealthcareInstitution,HealthcareInstitutionInput, HealthcareInstitutionModel> {
-	public ResponseEntity<HealthcareInstitutionModel> addCoinBugdet(Long id,BigDecimal coin, HealthcareInstitutionInput input);
+	public ResponseEntity<HealthcareInstitutionModel> addCoinBugdet(Long id,BigDecimal coin);
 }
