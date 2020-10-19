@@ -41,7 +41,7 @@ public class HealthcareInstitutionControllerImpl extends BaseControllerImpl<Heal
 	
 	@Override
 	@PostMapping("/{id}/{coin}")
-	@ApiOperation(value="Add coin to budget by healthcare institution")
+	@ApiOperation(value="Add coin to bugdet by healthcare institution")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ResponseEntity<HealthcareInstitutionModel> addCoinBugdet(@PathVariable Long id,@PathVariable BigDecimal coin,  @Valid @RequestBody HealthcareInstitutionInput input) {
 		if (!service.existsById(id)) {
@@ -77,7 +77,7 @@ public class HealthcareInstitutionControllerImpl extends BaseControllerImpl<Heal
 	}
 	
 	@Override
-	@ApiOperation(value="Delete healthcar")
+	@ApiOperation(value="Delete healthcare")
 	public ResponseEntity<HealthcareInstitutionModel> delete(@PathVariable Long id) {
 		return super.delete(id);
 	}
