@@ -34,7 +34,7 @@ public class HealthcareInstitutionServiceImpl extends BaseServiceImpl<Healthcare
 		Optional<Bugdet> findById = bugdetRepository.findById(entity.getBugdet().getIdBugdet());
 		if(findById.isPresent()) {
 			Bugdet bugdet = findById.get();
-			bugdet.setCoin(coin);
+			bugdet.setCoin(bugdet.getCoin().add(coin));
 			bugdet.setDescription("Add coin to bugdet");
 			entity.setBugdet(bugdet);	
 		}
